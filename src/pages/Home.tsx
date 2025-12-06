@@ -26,6 +26,12 @@ function Home() {
       >
         <Navbar />
 
+        <div className="flex h-[100vh]  flex-col items-center justify-center text-center px-4 pt-32 pb-16 md:pb-32 lg:pb-48">
+          <h1 className="text-9xl font-extrabold stroke-white">
+            CONSTRUIRE. CRÉER. INNOVER.
+          </h1>
+
+        </div>
       </div>
     </div>
   );
