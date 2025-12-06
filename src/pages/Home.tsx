@@ -27,9 +27,14 @@ function Home() {
         <Navbar />
 
         <div className="flex h-[100vh]  flex-col items-center justify-center text-center px-4 pt-32 pb-16 md:pb-32 lg:pb-48">
-          <h1 className="text-9xl font-extrabold stroke-white">
-            CONSTRUIRE. CRÉER. INNOVER.
+          <h1 className="lg:text-[20rem] sm:text-[18rem]  text-[9rem] font-extrabold stroke-white">
+            PORT
           </h1>
+          <h1 className="lg:text-[18rem] text-[8rem] sm:-mt-40 lg:-mt-50 -mt-20 sm:text-[16rem] font-extrabold stroke-white">
+            FOLIO
+          </h1>
+        </div>
+        <div className="">
 
         </div>
       </div>
