@@ -21,6 +21,19 @@ import css from "../assets/images/logos/css.png";
 import reactnative from "../assets/images/logos/reactnative.png";
 import flutter from "../assets/images/logos/flutter.png";
 
+// Interface pour les technologies
+interface Technology {
+  name: string;
+  logo: string;
+  color: string;
+}
+
+// Interface pour les props du composant TechnologyLogo
+interface TechnologyLogoProps {
+  tech: Technology;
+  size?: "small" | "large";
+}
+
 function Home() {
   useEffect(() => {
     if (localStorage.getItem("darkMode") === null) {
@@ -45,8 +58,7 @@ function Home() {
   };
 
   // Tableau des technologies avec leurs logos
-  // Utilisez un objet pour gérer les imports et les placeholders
-  const technologyData = [
+  const technologyData: Technology[] = [
     { name: "React", logo: reactLogo, color: "bg-white" },
     { name: "Next.js", logo: nextjsLogo, color: "bg-white" },
     { name: "TypeScript", logo: typescriptLogo, color: "bg-white" },
@@ -67,20 +79,8 @@ function Home() {
   ];
 
   // Composant pour afficher un logo ou un fallback
-  const TechnologyLogo = ({ tech, size = "large" }) => {
+  const TechnologyLogo: React.FC<TechnologyLogoProps> = ({ tech, size = "large" }) => {
     const isLarge = size === "large";
-
-    if (!tech.logo) {
-      // Fallback pour les logos manquants
-      return (
-        <div className="text-center">
-          <div className={`${isLarge ? 'text-3xl' : 'text-2xl'} font-bold text-white/80`}>
-            {tech.name.charAt(0)}
-          </div>
-          {isLarge && <div className="text-xs text-white/60 mt-1">Logo</div>}
-        </div>
-      );
-    }
 
     return (
       <img
@@ -89,15 +89,19 @@ function Home() {
         className={`w-full h-full object-contain ${isLarge ? '' : 'opacity-80 group-hover:opacity-100'} transition-opacity duration-300`}
         onError={(e) => {
           // Fallback si l'image échoue à charger
-          e.currentTarget.style.display = 'none';
-          const parent = e.currentTarget.parentElement;
-          const fallbackDiv = document.createElement('div');
-          fallbackDiv.className = 'text-center';
-          fallbackDiv.innerHTML = `
-            <div class="${isLarge ? 'text-3xl' : 'text-2xl'} font-bold text-white/80">${tech.name.charAt(0)}</div>
-            ${isLarge ? '<div class="text-xs text-white/60 mt-1">Logo</div>' : ''}
-          `;
-          parent.appendChild(fallbackDiv);
+          const target = e.currentTarget;
+          target.style.display = 'none';
+          const parent = target.parentElement;
+
+          if (parent) {
+            const fallbackDiv = document.createElement('div');
+            fallbackDiv.className = 'text-center';
+            fallbackDiv.innerHTML = `
+              <div class="${isLarge ? 'text-3xl' : 'text-2xl'} font-bold text-white/80">${tech.name.charAt(0)}</div>
+              ${isLarge ? '<div class="text-xs text-white/60 mt-1">Logo</div>' : ''}
+            `;
+            parent.appendChild(fallbackDiv);
+          }
         }}
       />
     );
@@ -150,10 +154,8 @@ function Home() {
                       d="M19 14l-7 7m0 0l-7-7m7 7V3"
                     />
                   </svg>
-
                 </div>
               </button>
-
             </div>
           </div>
         </div>
@@ -162,49 +164,95 @@ function Home() {
       {/* Deuxième Section - Faisons connaissance */}
       <section
         id="about-section"
-        className="min-h-screen relative bg-gradient-to-b from-[#090919] via-[#3B1E7A] to-[#000000]"
+        className="min-h-screen relative bg-gradient-to-b from-[#090919] via-[#3B1E7A] to-[#000000] overflow-hidden"
       >
+        {/* Overlay avec effet de texture */}
         <div className="absolute inset-0 bg-black/30 dark:bg-black/70"></div>
-        <div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl text-white sm:text-4xl md:text-5xl font-bold mb-6">
-                Faisons connaissance
-              </h2>
-            </div>
-            <div
-              className="
-    mt-10 text-center text-gray-300 px-8 py-12 
-    rounded-3xl relative overflow-hidden
-    bg-gradient-to-br from-white/8 to-white/4
-    border border-white/20 backdrop-blur-2xl
-    shadow-[inset_0_2px_4px_rgba(255,255,255,0.12),0_8px_32px_rgba(0,0,0,0.25)]
-    before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br 
-    before:from-white/20 before:via-transparent before:to-transparent before:opacity-40 before:pointer-events-none
-    after:absolute after:inset-0 after:rounded-3xl after:bg-gradient-to-tl 
-    after:from-white/10 after:via-transparent after:to-transparent after:opacity-20 after:pointer-events-none
-  "
-            >
-              <h1 className="relative z-10 leading-relaxed text-lg md:text-xl text-gray-200">
-                Je m'appelle <span className="text-white font-semibold">Marc Brou</span>, développeur web passionné,
-                curieux et toujours en quête de nouveaux défis.
+
+        {/* Effet de lumière animé */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-700"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
+          {/* Titre principal */}
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl text-white sm:text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 animate-gradient">
+              Faisons connaissance
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent mx-auto rounded-full"></div>
+          </div>
+
+          {/* Bloc parent positionné en relatif */}
+          <div className="relative w-full min-h-[500px]">
+            {/* --- Texte en haut à gauche avec bordures arrondies --- */}
+            <div className="absolute top-0 left-0 w-full md:w-[48%] p-6 md:p-8 
+            bg-gradient-to-br from-purple-900/20 to-transparent backdrop-blur-sm
+            rounded-tr-3xl rounded-br-3xl
+            border-r-2 border-t-2 border-b-2 border-purple-500/50
+            shadow-lg shadow-purple-500/20
+            hover:shadow-purple-500/40 transition-all duration-500
+            hover:scale-[1.02] transform">
+
+              {/* Coin décoratif en haut à droite */}
+              <div className="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-purple-400 rounded-tr-2xl"></div>
+
+              {/* Coin décoratif en bas à droite */}
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-purple-400 rounded-br-2xl"></div>
+
+              <h1 className="text-gray-300 text-lg md:text-xl leading-relaxed md:leading-loose relative z-10">
+                Je m'appelle{' '}
+                <span className="text-white font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  Marc Brou
+                </span>
+                , développeur web passionné, curieux et toujours en quête de nouveaux défis.
                 Mon parcours est né d'une envie simple : créer des solutions utiles, belles,
                 fiables et capables de faciliter la vie des gens.
-                <br /><br />
-                Au fil de mes projets, j'ai touché à PHP, MySQL, JavaScript, Node.js, React.js,
-                Next.js, en construisant des plateformes complètes, des dashboards admin,
+              </h1>
+
+              {/* Points décoratifs */}
+              <div className="absolute top-4 right-4 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
+              <div className="absolute top-4 right-4 w-2 h-2 bg-purple-400 rounded-full"></div>
+            </div>
+
+            {/* --- Texte en bas à droite avec bordures arrondies --- */}
+            <div className="absolute bottom-0 right-0 w-full md:w-[48%] p-6 md:p-8
+            bg-gradient-to-tl from-blue-900/20 to-transparent backdrop-blur-sm
+            rounded-tl-3xl rounded-bl-3xl
+            border-l-2 border-t-2 border-b-2 border-blue-500/50
+            shadow-lg shadow-blue-500/20
+            hover:shadow-blue-500/40 transition-all duration-500
+            hover:scale-[1.02] transform
+            mt-64 md:mt-0">
+
+              {/* Coin décoratif en haut à gauche */}
+              <div className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-blue-400 rounded-tl-2xl"></div>
+
+              {/* Coin décoratif en bas à gauche */}
+              <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-blue-400 rounded-bl-2xl"></div>
+
+              <h1 className="text-gray-300 text-lg md:text-xl leading-relaxed md:leading-loose relative z-10">
+                Au fil de mes projets, j'ai touché à{' '}
+                <span className="text-purple-400 font-semibold">PHP</span>,{' '}
+                <span className="text-blue-400 font-semibold">MySQL</span>,{' '}
+                <span className="text-yellow-400 font-semibold">JavaScript</span>,{' '}
+                <span className="text-green-400 font-semibold">Node.js</span>,{' '}
+                <span className="text-cyan-400 font-semibold">React.js</span>,{' '}
+                <span className="text-white font-semibold">Next.js</span>,
+                en construisant des plateformes complètes, des dashboards admin,
                 des systèmes d'authentification sécurisés, des apps de messagerie,
                 des pages vitrines, jusqu'à des APIs robustes.
-                <br /><br />
-                Ce que j'aime ? Comprendre comment tout s'assemble : backend, UI, sécurité,
-                performances, déploiement.
-                Avec le temps, je suis devenu un développeur polyvalent qui aime apprendre,
-                bâtir et mener un projet jusqu'au bout.
-                <br /><br />
-                Aujourd'hui je cherche des opportunités pour créer, innover, résoudre
-                et continuer à grandir — avec un design élégant, une architecture solide,
-                ou une nouvelle technologie à maîtriser.
               </h1>
+
+              {/* Points décoratifs */}
+              <div className="absolute bottom-4 left-4 w-2 h-2 bg-blue-400 rounded-full animate-ping delay-500"></div>
+              <div className="absolute bottom-4 left-4 w-2 h-2 bg-blue-400 rounded-full"></div>
+            </div>
+
+            {/* Ligne de connexion centrale décorative */}
+            <div className="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-pulse"></div>
             </div>
           </div>
         </div>
