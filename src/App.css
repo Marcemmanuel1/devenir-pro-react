@@ -40,3 +40,36 @@
     animation: floatDown 4s ease-in-out infinite;
   }
 }
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slide-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide {
+  animation: slide 40s linear infinite;
+  width: max-content;
+}
+
+.animate-slide-reverse {
+  animation: slide-reverse 30s linear infinite;
+  width: max-content;
+}
+
+.animate-slide:hover,
+.animate-slide-reverse:hover {
+  animation-play-state: paused;
+}
