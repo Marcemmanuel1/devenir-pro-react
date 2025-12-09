@@ -182,20 +182,6 @@ export default function Navbar() {
                   </motion.span>
                 </motion.div>
               ))}
-
-              {/* Effet de décoration */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-gray-400 text-sm"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-20 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-                  <span>Navigation</span>
-                  <div className="w-20 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-                </div>
-              </motion.div>
             </div>
           </motion.div>
         )}

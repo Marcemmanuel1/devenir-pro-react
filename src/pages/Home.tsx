@@ -4,22 +4,22 @@ import bgImage from "../assets/images/bg-hero.png";
 
 // Import des images disponibles
 import reactLogo from "../assets/images/logos/reactjs.png";
-import nextjsLogo from "../assets/images/nextjs.png";
+import nextjsLogo from "../assets/images/logos/nextjs.png";
 import typescriptLogo from "../assets/images/logos/typescript.png";
-import expressjs from "../assets/images/expressjs.png";
+import expressjs from "../assets/images/logos/expressjs.png";
 import nodejsLogo from "../assets/images/logos/nodejs.png";
 import tailwindLogo from "../assets/images/logos/tailwindcss.png";
 import jsLogo from "../assets/images/logos/js.webp";
-import phpLogo from "../assets/images/php.png";
-import mysqlLogo from "../assets/images/mysql.png";
+import phpLogo from "../assets/images/logos/php.png";
+import mysqlLogo from "../assets/images/logos/mysql.png";
 import dockerLogo from "../assets/images/logos/docker.svg";
 import gitLogo from "../assets/images/logos/git.png";
 import vscodeLogo from "../assets/images/logos/vscode.png";
 import figmaLogo from "../assets/images/logos/figma.png";
-import html from "../assets/images/html.png";
-import css from "../assets/images/css.png";
-import reactnative from "../assets/images/reactnative.png";
-import flutter from "../assets/images/flutter.png";
+import html from "../assets/images/logos/html.png";
+import css from "../assets/images/logos/css.png";
+import reactnative from "../assets/images/logos/reactnative.png";
+import flutter from "../assets/images/logos/flutter.png";
 
 function Home() {
   useEffect(() => {
