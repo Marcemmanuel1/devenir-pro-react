@@ -185,7 +185,7 @@ function Home() {
           </div>
 
           {/* Bloc parent positionné en relatif */}
-          <div className="relative w-full min-h-[500px]">
+          <div className="relative w-full min-h-[600px]  md:min-h-[500px]">
             {/* --- Texte en haut à gauche avec bordures arrondies --- */}
             <div className="absolute top-0 left-0 w-full md:w-[48%] p-6 md:p-8 
             bg-gradient-to-br from-purple-900/20 to-transparent backdrop-blur-sm
@@ -250,6 +250,7 @@ function Home() {
               <div className="absolute bottom-4 left-4 w-2 h-2 bg-blue-400 rounded-full"></div>
             </div>
 
+
             {/* Ligne de connexion centrale décorative */}
             <div className="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-pulse"></div>
@@ -265,9 +266,8 @@ function Home() {
             <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-6">
               Technologies & Outils
             </h2>
-            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
-              L'ensemble des technologies que j'utilise pour créer des applications modernes
-            </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent mx-auto rounded-full"></div>
+
           </div>
 
           {/* Premier carrousel - défile de gauche à droite */}
